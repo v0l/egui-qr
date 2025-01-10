@@ -42,7 +42,7 @@ impl Widget for QrCodeWidget<'_> {
 
         painter.rect(
             response.rect,
-            Rounding::none(),
+            Rounding::ZERO,
             Color32::WHITE,
             Stroke::NONE,
         );
@@ -55,7 +55,7 @@ impl Widget for QrCodeWidget<'_> {
             if matches!(c, Color::Dark) {
                 painter.rect(
                     Rect::from_min_max(c_start, c_end),
-                    Rounding::none(),
+                    Rounding::ZERO,
                     match c {
                         Color::Light => Color32::WHITE,
                         Color::Dark => Color32::BLACK,
