@@ -6,7 +6,7 @@ fn main() {
     let _ = eframe::run_native(
         "egui_qr",
         NativeOptions::default(),
-        Box::new(|_| Box::new(App::new())),
+        Box::new(|_| Ok(Box::new(App::new()))),
     );
 }
 

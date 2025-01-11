@@ -40,12 +40,7 @@ impl Widget for QrCodeWidget<'_> {
         let (response, painter) =
             ui.allocate_painter(vec2(w as f32 * scale, w as f32 * scale), Sense::click());
 
-        painter.rect(
-            response.rect,
-            Rounding::ZERO,
-            Color32::WHITE,
-            Stroke::NONE,
-        );
+        painter.rect(response.rect, Rounding::ZERO, Color32::WHITE, Stroke::NONE);
         let mut ctr = 0;
         for c in code_ref.to_colors() {
             let row = ctr / w;
