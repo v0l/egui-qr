@@ -4,7 +4,7 @@ use egui_qr::QrCodeWidget;
 
 fn main() {
     let _ = eframe::run_native(
-        "egui_qr",
+        "egui-qr",
         NativeOptions::default(),
         Box::new(|_| Ok(Box::new(App::new()))),
     );

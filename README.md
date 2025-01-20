@@ -1,4 +1,4 @@
-# egui_qr
+# egui-qr
 
 Simple egui painter that renders QR Codes
 
