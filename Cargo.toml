@@ -2,6 +2,11 @@
 name = "egui-qr"
 version = "0.1.0"
 edition = "2021"
+description = "QR painter for egui"
+license = "MIT"
+repository = "https://github.com/v0l/egui-qr"
+readme = "README.md"
+keywords = ["egui", "qr", "qrcode", "painter"]
 
 [dependencies]
 egui = { version = "0.29", default-features = false }
