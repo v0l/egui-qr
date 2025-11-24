@@ -1,4 +1,4 @@
-use egui::{vec2, Color32, Rect, Response, Rounding, Sense, Stroke, Ui, Widget};
+use egui::{Color32, CornerRadius, Rect, Response, Sense, Stroke, StrokeKind, Ui, Widget, vec2};
 use qrcode::types::QrError;
 use qrcode::{Color, QrCode};
 
@@ -48,7 +48,7 @@ impl Widget for QrCodeWidget<'_> {
         let start = ui.cursor().min + vec2(self.quiet_zone * scale, self.quiet_zone * scale);
         let (response, painter) = ui.allocate_painter(vec2(min_size, min_size), Sense::click());
 
-        painter.rect(response.rect, Rounding::ZERO, Color32::WHITE, Stroke::NONE);
+        painter.rect(response.rect, CornerRadius::ZERO, Color32::WHITE, Stroke::NONE, StrokeKind::Inside);
         let mut ctr = 0;
         for c in code_ref.to_colors() {
             let row = ctr / w;
@@ -58,12 +58,13 @@ impl Widget for QrCodeWidget<'_> {
             if matches!(c, Color::Dark) {
                 painter.rect(
                     Rect::from_min_max(c_start, c_end),
-                    Rounding::ZERO,
+                    CornerRadius::ZERO,
                     match c {
                         Color::Light => Color32::WHITE,
                         Color::Dark => Color32::BLACK,
                     },
                     Stroke::NONE,
+                    StrokeKind::Inside
                 );
             }
             ctr += 1;
