@@ -16,3 +16,7 @@ QrCodeWidget::from_data(b"bitcoin:BC1Q...")?
 ```
 
 Version 0.2 needs egui 0.35. Use 0.1 for egui 0.33.
+
+## Licence
+
+GPL-3.0-or-later, see [LICENSE](LICENSE). Versions 0.2.0 and earlier on crates.io are MIT.
