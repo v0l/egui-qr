@@ -10,6 +10,7 @@ enum CodeSrc<'a> {
 pub struct QrCodeWidget<'a> {
     code: CodeSrc<'a>,
     quiet_zone: f32,
+    size: Option<f32>,
 }
 
 impl<'a> QrCodeWidget<'a> {
@@ -17,6 +18,7 @@ impl<'a> QrCodeWidget<'a> {
         QrCodeWidget {
             code: CodeSrc::Ref(code),
             quiet_zone: 1.,
+            size: None,
         }
     }
 
@@ -25,25 +27,35 @@ impl<'a> QrCodeWidget<'a> {
         Ok(QrCodeWidget {
             code: CodeSrc::Owned(code),
             quiet_zone: 1.,
+            size: None,
         })
     }
 
+    /// Blank modules around the code, 1 by default. Scanners want at least 2 to 4.
     pub fn quiet_zone(mut self, quiet_zone: f32) -> Self {
         self.quiet_zone = quiet_zone;
+        self
+    }
+
+    /// Draw it `size` points square. Without this it fills the space available.
+    pub fn size(mut self, size: f32) -> Self {
+        self.size = Some(size);
         self
     }
 }
 
 impl Widget for QrCodeWidget<'_> {
     fn ui(self, ui: &mut Ui) -> Response {
-        let outer_size = ui.available_size();
 
         let code_ref = match &self.code {
             CodeSrc::Ref(code) => code,
             CodeSrc::Owned(q) => q,
         };
         let w = code_ref.width();
-        let min_size = outer_size.x.min(outer_size.y);
+        let min_size = self.size.unwrap_or_else(|| {
+            let outer = ui.available_size();
+            outer.x.min(outer.y)
+        });
         let scale = min_size / (w as f32 + (self.quiet_zone * 2.));
         let start = ui.cursor().min + vec2(self.quiet_zone * scale, self.quiet_zone * scale);
         let (response, painter) = ui.allocate_painter(vec2(min_size, min_size), Sense::click());
