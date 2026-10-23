@@ -1,5 +1,5 @@
 use eframe::{Frame, NativeOptions};
-use egui::{CentralPanel, Context, TextEdit, TopBottomPanel, Widget};
+use egui::{CentralPanel, Panel, TextEdit, Ui, Widget};
 use egui_qr::QrCodeWidget;
 
 fn main() {
@@ -23,9 +23,9 @@ impl App {
 }
 
 impl eframe::App for App {
-    fn update(&mut self, ctx: &Context, _frame: &mut Frame) {
-        TopBottomPanel::top("main").show(ctx, |ui| TextEdit::singleline(&mut self.data).ui(ui));
-        CentralPanel::default().show(ctx, |ui| {
+    fn ui(&mut self, root: &mut Ui, _frame: &mut Frame) {
+        Panel::top("main").show(root, |ui| TextEdit::singleline(&mut self.data).ui(ui));
+        CentralPanel::default().show(root, |ui| {
             if let Ok(q) = QrCodeWidget::from_data(self.data.as_bytes()) {
                 q.ui(ui)
             } else {
